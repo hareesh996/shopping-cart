@@ -20,5 +20,5 @@ WORKDIR /home/gradle/project
 
 COPY --from=0 /home/gradle/project/shopping-cart-api/build/libs/shopping-cart-api-${version}.jar .
 
-ENTRYPOINT java -jar project-0.0.1-SNAPSHOT.jar
+ENTRYPOINT java -Dspring.profiles.active=cloud -jar project-0.0.1-SNAPSHOT.jar
 
