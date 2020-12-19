@@ -4,7 +4,7 @@ WORKDIR /home/gradle/project
 
 EXPOSE 8082
 
-RUN apk update
+## RUN apk update
 
 ENV GRADLE_USER_HOME /home/gradle/project
 
