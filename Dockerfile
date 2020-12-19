@@ -10,7 +10,7 @@ ENV GRADLE_USER_HOME /home/gradle/project
 
 COPY . /home/gradle/project
 
-RUN gradle :shoppring-cart-api:build
+RUN gradle :shopping-cart-api:build
 
 # PROJECT BUILD IS COMPLETE, NOW RUN THE APPLICATION
 
