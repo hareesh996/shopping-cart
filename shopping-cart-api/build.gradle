@@ -1,0 +1,52 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id "io.freefair.lombok" version "5.1.0"
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+}
+
+group 'com.shoppingcart.api'
+version '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+ext {
+    mapstructVersion = "1.4.1.Final"
+    swaggerConfig = "3.0.0"
+}
+
+dependencies {
+    implementation project (':common-util')
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    compile group: 'io.springfox', name: 'springfox-boot-starter', version: "${swaggerConfig}"
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerConfig}"
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.verbose=true'
+    ]
+}
