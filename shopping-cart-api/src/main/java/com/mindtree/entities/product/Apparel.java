@@ -11,19 +11,19 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "product_id")
-public class Book extends Product {
-    private String genre;
-    private String author;
-    private String publications;
+public class Apparel extends Product {
+    private String type;
+    private String brand;
+    private String design;
 
-    @Builder(builderMethodName = "bookBuilder")
-    public Book(Long productId, String productName, Double price, String genre, String author, String publications) {
+    @Builder(builderMethodName = "apparelBuilder")
+    public Apparel(Long productId, String productName, Double price, String type, String brand, String design) {
         super(productId, productName, price);
-        this.genre = genre;
-        this.author = author;
-        this.publications = publications;
+        this.type = type;
+        this.brand = brand;
+        this.design = design;
     }
 }

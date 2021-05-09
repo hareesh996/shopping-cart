@@ -1,12 +1,13 @@
 package com.mindtree.web.dto.product;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class BookDto extends ProductDto {
+@AllArgsConstructor
+public class BookSearchDto extends ProductSearchDto {
     private String genre;
     private String author;
-    private String publications;
 }

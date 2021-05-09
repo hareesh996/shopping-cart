@@ -1,5 +1,6 @@
 package com.mindtree.entities.user;
 
+import com.mindtree.entities.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,20 +8,17 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "app_user")
-public class User {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long userId;
-	
-	@Column(unique = true)
-	private String userName;
-	
-	private String firstName;
-	private String lastName;
-	private String middleName;
+public class User extends BaseEntity {
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="cart_id", nullable = true, unique = true)
-	private Cart cart;	
+    @Id
+    @GeneratedValue(generator = "user_id_seq")
+    // TODO: This should be moved to the DB.
+    @SequenceGenerator(initialValue = 000001, name = "user_id_seq", sequenceName = "user_id_generator")
+    private Long userId;
+
+    private String userName;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+
 }

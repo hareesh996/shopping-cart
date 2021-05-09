@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @Builder
 public class ResponseDto<T> {
-	private T data;
+    private T data;
 }

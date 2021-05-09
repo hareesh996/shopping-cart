@@ -1,32 +1,28 @@
 package com.mindtree.entities.product;
 
+import com.mindtree.entities.BaseEntity;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@EntityListeners(AuditingEntityListener.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product {
-	
-	@Id
-	@GeneratedValue
-	Long productId;
-	
-	String productName;
-	Float price;
-	
-	@CreatedDate
-	LocalDateTime createdDate;
-	
-	@LastModifiedDate
-	LocalDateTime modifiedDate;
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy =  InheritanceType.JOINED)
+public class Product extends BaseEntity {
+
+    @Id
+    @GeneratedValue
+    private Long productId;
+
+    private String productName;
+
+    private Double price;
+
 }

@@ -16,16 +16,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SpringFoxSwaggerConfig {
 
     @Bean
-    public Docket shoppingCartAPI(){
+    public Docket shoppingCartAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.mindtree.web"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(this.apiInfo());
     }
 
-    public ApiInfo apiInfo(){
+    public ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Shopping Cart API")
                 .description("Shopping Cart API")
                 .version("v1")

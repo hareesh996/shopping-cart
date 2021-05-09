@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data()
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor()
-public class ApparelDto extends ProductDto{
-	private String genre;
-	private String author;
-	private String publications;
+public class ApparelDto extends ProductDto {
+    private String type;
+    private String brand;
+    private String design;
 }

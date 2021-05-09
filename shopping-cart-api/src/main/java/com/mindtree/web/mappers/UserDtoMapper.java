@@ -5,19 +5,20 @@ import com.mindtree.web.dto.user.UserDto;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-unmappedTargetPolicy = ReportingPolicy.IGNORE)
+        unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface UserDtoMapper {
-		
-	UserDto dtoToEntity(User user);
 
-	User entityToDto(UserDto userDto);
-	
-	/**
-	 * Update the UserDto with User.
-	 * @param userDto
-	 * @param userEntity
-	 */
-	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-	void updateUserEntity(UserDto userDto, @MappingTarget User userEntity);
-	
+    UserDto dtoToEntity(User user);
+
+    User entityToDto(UserDto userDto);
+
+    /**
+     * Update the UserDto with User.
+     *
+     * @param userDto
+     * @param userEntity
+     */
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateUserEntity(UserDto userDto, @MappingTarget User userEntity);
+
 }

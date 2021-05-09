@@ -5,12 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication(
-		exclude = {SecurityAutoConfiguration.class}
+        exclude = {SecurityAutoConfiguration.class}
 )
 public class ShoppingCartApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ShoppingCartApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ShoppingCartApplication.class, args);
+    }
 
 }
