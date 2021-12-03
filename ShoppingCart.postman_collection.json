@@ -1,0 +1,122 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ShoppingCart",
+		"_postman_id": "9486a14a-cbe1-7c93-d10b-6fdc81d78e19",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add-user",
+			"request": {
+				"url": "localhost:8080/shopping-cart-service/users/add-user",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Man\",\r\n  \"middleName\": \"Super\",\r\n  \"userName\": \"john@superman\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get-user",
+			"request": {
+				"url": "localhost:8080/shopping-cart-service/users/john@superman",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "SearchBook",
+			"request": {
+				"url": "http://localhost:8080/shopping-cart-service/search/books",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"genre\": \"Reality\",\r\n  \"pageNumber\":\"1\",\r\n  \"pageSize\" : \"10\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get-cart",
+			"request": {
+				"url": "http://localhost:8080/shopping-cart-service/cart",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\": 1,\n    \"userName\": \"john@superman\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Man\",\n    \"middleName\": \"Super\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add-product",
+			"request": {
+				"url": "http://localhost:8080/shopping-cart-service/cart/add-product",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numberOfQuantities\": 2,\r\n  \"productDto\": {\r\n    \"productId\": 1\r\n  },\r\n  \"user\": {\r\n    \"userId\": 1,\r\n    \"userName\": \"john@superman\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Man\",\r\n    \"middleName\": \"Super\"\r\n  }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "SearchApparels",
+			"request": {
+				"url": "http://localhost:8080/shopping-cart-service/search/apparels",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"brand\": \"Nike\",\r\n  \"pageNumber\":\"1\",\r\n  \"pageSize\" : \"10\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
