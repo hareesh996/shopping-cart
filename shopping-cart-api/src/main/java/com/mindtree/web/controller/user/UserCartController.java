@@ -7,6 +7,9 @@ import com.mindtree.web.dto.product.ProductDto;
 import com.mindtree.web.dto.user.CartDto;
 import com.mindtree.web.dto.user.CartRequest;
 import com.mindtree.web.dto.user.UserDto;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("cart")
+@Slf4j
 public class UserCartController {
 
     private UserCartService userCartService;
@@ -32,14 +36,22 @@ public class UserCartController {
     @PostMapping(path = "/add-product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<CartDto>> addProductToCart(@RequestBody CartRequest cartRequest) {
         CartDto cartDto = this.userCartService.addProduct(cartRequest);
+        if(log.isDebugEnabled()) {
+        	log.debug("Successfully added the cart request [{}] to the User", cartRequest);
+        }
         return Response.<CartDto>builder().ok(cartDto);
     }
 
     @DeleteMapping(path = "/remove-product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<ProductDto>> removeProductFromCart(@RequestBody CartRequest cartRequest) {
         Optional<ProductDto> productDto = this.userCartService.removeProduct(cartRequest);
-        return productDto.isEmpty() ?
-                Response.<ProductDto>builder().withError("removeCart.productNtFound") : Response.<ProductDto>builder().ok(productDto.get());
+        if(productDto.isEmpty()) {
+        	log.error("We did find provided product [{}] on the the user cart", cartRequest);
+        	return Response.<ProductDto>builder().withError("removeCart.productNtFound");
+        } else {
+        	log.info("Successfully remove the product [{}] from the cart", cartRequest);
+        	return Response.<ProductDto>builder().ok(productDto.get());
+        }
     }
 
 }

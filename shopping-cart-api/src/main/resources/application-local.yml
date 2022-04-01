@@ -1,4 +1,9 @@
 spring:
+  jpa:
+    database: postgresql
+    properties:
+      hibernate: 
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
   datasource:
     url: jdbc:postgresql://localhost:5432/shopping-cart
     username: postgres

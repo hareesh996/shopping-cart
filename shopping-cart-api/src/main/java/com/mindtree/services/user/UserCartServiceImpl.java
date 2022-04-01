@@ -14,6 +14,10 @@ import com.mindtree.web.dto.user.CartRequest;
 import com.mindtree.web.dto.user.UserDto;
 import com.mindtree.web.mappers.CartProductDtoMapper;
 import com.mindtree.web.mappers.ProductDtoMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class UserCartServiceImpl implements UserCartService {
 
     private final CartRespository cartRespository;
@@ -40,13 +45,19 @@ public class UserCartServiceImpl implements UserCartService {
     public CartDto getCartOfUser(UserDto userDto) {
         Cart cart = this.getCart(userDto);
         if (Objects.isNull(cart)) {
-            throw new BusinessException("user.invalid", "Invalid User Details");
+        	log.error("User Id [{}] provided is invalid, did find the cart", userDto.getUserId());
+            throw new BusinessException("user.invalid", HttpStatus.BAD_REQUEST, "Invalid User Details");
         }
         return this.cartProductDtoMapper.convertToCartDto(cart);
     }
 
     private Cart getCart(UserDto userDto) {
-        return this.cartRespository.findByUserUserId(userDto.getUserId());
+    	Cart cart = this.cartRespository.findByUserUserId(userDto.getUserId());
+    	 if(Objects.isNull(cart)) {
+         	log.error("User Id [{}] provided is invalid, did find the cart", userDto.getUserId());
+         	throw new BusinessException("user.invalid", HttpStatus.BAD_REQUEST, "Invalid User Details");
+         }
+        return cart;
     }
 
     @Transactional()

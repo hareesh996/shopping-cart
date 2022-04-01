@@ -1,18 +1,20 @@
 package com.mindtree.web.dto;
 
-import lombok.Data;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
-import java.util.List;
+import lombok.Data;
 
 @Data
 public class Response<T> {
 
     private T body;
     private HttpStatus status;
-    private List<String> errorKeys;
+    private List<Message> messages;
 
     public static <T> ResponseBuilder<T> builder() {
         return new ResponseBuilder<T>();
@@ -33,12 +35,21 @@ public class Response<T> {
 
         public ResponseBuilder<T> status(HttpStatus status, String... errorKeys) {
             this.response.status = status;
-            this.response.errorKeys = Arrays.asList(errorKeys);
+            this.response.messages = convertToMessages(errorKeys);
             return this;
         }
 
+		private List<Message> convertToMessages(String... errorKeys) {
+			return Stream.of(errorKeys).map((errorKey) -> {
+            	Message message = new Message();
+            	message.setKey(errorKey);
+            	message.setType(MessageType.ERROR);
+            	return message;
+            }).collect(Collectors.toList());
+		}
+
         public ResponseEntity<Response<T>> withError(String... errorKeys) {
-            this.response.errorKeys = Arrays.asList(errorKeys);
+            this.response.messages = convertToMessages(errorKeys);
             return this.build(null);
         }
 

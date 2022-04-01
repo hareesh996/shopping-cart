@@ -1,39 +1,24 @@
 package com.mindtree.core.exception;
 
-import com.google.common.base.Joiner;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import org.springframework.http.HttpStatus;
+
 import lombok.EqualsAndHashCode;
 
-@Data
 @EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
-public class BusinessException extends RuntimeException {
+public class BusinessException extends  BaseException{
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String errorKey;
-    private Throwable exception;
-    /**
-     * A non null value of exceptionData can be used for the processing error key with meaningful data.
-     */
-    private Object exceptionData;
-
-    public BusinessException(String errorKey, String... message) {
-        super(Joiner.on("").skipNulls().join(message));
-        this.errorKey = errorKey;
+    public BusinessException(String errorKey, HttpStatus httpStatus, String... message) {
+    	super(errorKey, httpStatus, message);
     }
 
-    public BusinessException(String errorKey, Throwable ex, String... message) {
-        super(Joiner.on("").skipNulls().join(message));
-        this.errorKey = errorKey;
-        this.exception = ex;
+    public BusinessException(String errorKey, Throwable ex, HttpStatus httpStatus, String... message) {
+    	super(errorKey, ex,httpStatus, message);
     }
 
-    public BusinessException(String errorKey, Object errorData, Object... message) {
-        super(Joiner.on("").skipNulls().join(message));
-        this.errorKey = errorKey;
-        this.exceptionData = errorData;
+    public BusinessException(String errorKey, Object errorData, HttpStatus httpStatus, Object... message) {
+        super(errorKey, errorData, httpStatus,  message);
     }
 
 }

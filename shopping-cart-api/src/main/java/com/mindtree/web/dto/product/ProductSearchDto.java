@@ -1,6 +1,7 @@
 package com.mindtree.web.dto.product;
 
-import com.midtree.core.sql.SortOrder;
+import com.mindtree.core.sql.SortOrder;
+
 import lombok.Data;
 
 @Data

@@ -1,4 +1,9 @@
 spring:
+  jpa:
+    database: postgresql
+    properties:
+      hibernate: 
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
   datasource:
     url: jdbc:postgresql://ec2-54-228-209-117.eu-west-1.compute.amazonaws.com:5432/d3tje7mtkbt1pe
     username: ojcohwsjytahug

@@ -1,12 +1,12 @@
 package com.mindtree.dao.product;
 
 import com.google.common.base.Strings;
-import com.midtree.core.sql.QueryBuilder;
+import com.mindtree.core.sql.QueryBuilder;
+import com.mindtree.core.sql.SortOrder;
 import com.mindtree.entities.product.Apparel;
 import com.mindtree.entities.product.Book;
 import com.mindtree.web.dto.product.ApparelSearchDto;
 import com.mindtree.web.dto.product.BookSearchDto;
-import com.midtree.core.sql.SortOrder;
 import com.mindtree.web.dto.product.ProductSearchDto;
 import com.mindtree.web.dto.product.SortRecordsBy;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

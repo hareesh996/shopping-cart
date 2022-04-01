@@ -9,11 +9,16 @@ import com.mindtree.entities.user.User;
 import com.mindtree.web.dto.user.Action;
 import com.mindtree.web.dto.user.UserDto;
 import com.mindtree.web.mappers.UserDtoMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserDtoMapper userDtoMapper;
@@ -29,7 +34,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserDetailsByUserName(String userName) {
         return this.userRepository.findByUserName(userName).map((t) -> this.userDtoMapper.dtoToEntity(t))
-                .orElseThrow(() -> new BusinessException("user.detailsNtFound", "User Details are not found for the userId [" + userName + "]"));
+                .orElseThrow(() -> {
+                	log.error("User Details are not found for the userId [{}]", userName);
+                	return new BusinessException("user.detailsNtFound", HttpStatus.NOT_FOUND,  "User Details are not found for the userId [" + userName + "]");
+                });
     }
 
     @Transactional()
@@ -39,7 +47,10 @@ public class UserServiceImpl implements UserService {
             return createUser(userDto);
         }
         User user = this.userRepository.findByUserName(userDto.getUserName())
-                .orElseThrow(() -> new BusinessException("user.userNtFound", "User details are not found"));
+                .orElseThrow(() -> {
+                	log.error("User details are not found for the user [{}]", userDto.getUserName());
+                	return new BusinessException("user.userNtFound", HttpStatus.BAD_REQUEST, "User details are not found");
+                });
         this.userDtoMapper.updateUserEntity(userDto, user);
         user = this.userRepository.save(user);
         return this.userDtoMapper.dtoToEntity(user);
