@@ -1,7 +1,9 @@
 spring:
+  profiles:
+    active: h2 #This is only evaluator, to run the application directly. This would not exist in the app yml file.
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # This is just for evaluation purpose.
     generate-ddl: true
     show-sql: true
   application:
