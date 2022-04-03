@@ -14,6 +14,8 @@ import com.mindtree.core.exception.BaseException;
 import com.mindtree.core.exception.BusinessException;
 import com.mindtree.web.dto.Response;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @Desc
  *       <p>
@@ -30,6 +32,7 @@ import com.mindtree.web.dto.Response;
  */
 @ControllerAdvice
 @RestController
+@Slf4j
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@Override
@@ -38,6 +41,9 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
 		ResponseEntity<Object> responseEntity = null;
 		Locale locale = request.getLocale();
+		
+		log.error("An exception has occured while processing the request ", ex);
+		
 		if (ex instanceof BaseException) {
 			responseEntity = handleApplicationException((BaseException) ex, body, locale);
 		}else {

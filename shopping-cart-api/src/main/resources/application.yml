@@ -10,6 +10,7 @@ spring:
     static-path-pattern: "/**"
 logging:
   level:
+    root: info
     org.springframework: info
 server:
   servlet:
